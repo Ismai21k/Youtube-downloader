@@ -6,8 +6,17 @@
         <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+        {% if messages %}
+            {% for message in messages %}
+            <p style="color:red;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        <a href="{% url 'register' %}">Register</a>
+        <a href="{% url 'user_logout' %}">Logout</a>
         <h1>Youtube Video Downloader</h1>
-
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.first_name }} {{ user.last_name }}</p>
+        {% endif %}
         <form  method="POST">
             {% csrf_token %}
             <label for="link">Enter Youtube URL:</label>
@@ -27,6 +36,7 @@
             </video>
         
         {% endif %}
+        
 
     </body>
 </html>
