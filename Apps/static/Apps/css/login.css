@@ -1,0 +1,88 @@
+/* Authentication Form Styles */
+.auth-form {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.auth-form h1 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Input Fields */
+.auth-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 6px rgba(52, 152, 219, 0.3);
+}
+
+/* Submit Button */
+.auth-form button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin-top: 10px;
+}
+
+.auth-form button:hover {
+    background: linear-gradient(135deg, #2980b9, #1c6ea4);
+    transform: scale(1.03);
+}
+
+/* Auth Text & Links */
+.auth-text {
+    text-align: center;
+    margin-top: 20px;
+    color: #7f8c8d;
+    font-size: 15px;
+}
+
+.auth-link {
+    color: #3498db;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.auth-link:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+    .auth-form {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .auth-form input,
+    .auth-form button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
