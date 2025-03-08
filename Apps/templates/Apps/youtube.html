@@ -1,42 +1,83 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        
-        <meta charset="UTF-8">
-        <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        {% if messages %}
-            {% for message in messages %}
-            <p style="color:red;">{{ message }}</p>
-            {% endfor %}
-        {% endif %}
-        <a href="{% url 'register' %}">Register</a>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloaded Videos</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+    
         <a href="{% url 'user_logout' %}">Logout</a>
-        <h1>Youtube Video Downloader</h1>
-        {% if user.is_authenticated %}
-            <p>Welcome, {{ user.first_name }} {{ user.last_name }}</p>
-        {% endif %}
-        <form  method="POST">
-            {% csrf_token %}
-            <label for="link">Enter Youtube URL:</label>
-            <input type="text" id="link" name="link" required>
-            <input type="submit" value="Download">
-        </form>
+        <p>Welcome, {{ user.first_name }} - {{ user.last_name }}</p>
 
-        {% if error_message %}
-            <p style="color: red;">{{ error_message }}</p>
-        {% endif %}
+    {% endif %}
+    <h1>Download YouTube Videos</h1>
 
-        {% if video_url %}
-            <h3>Download Successful! 🎉</h3>
-            <video width="640" height="360" controls>
-                <source src="{{ video_url }}" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        
-        {% endif %}
-        
+    <form method="post">
+        {% csrf_token %}
+        <label for="link">Enter YouTube URL:</label>
+        <input type="text" id="link" name="link" required>
+        <button type="submit">Download</button>
+    </form>
 
-    </body>
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+
+    <h2>Your Downloaded Videos</h2>
+
+    {% if videos %}
+        <ul>
+            {% for video in videos %}
+                <li>
+                    <p><strong>{{ video.title }}</strong></p>
+                    <video width="400" controls>
+                        <source src="{{ video.file.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <br>
+                    <a href="{{ video.file.url }}" download>Download</a>
+
+                    <!-- Delete Button -->
+                    <form action="{% url 'delete_video' video.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" style="color: red;">Delete</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No videos downloaded yet.</p>
+    {% endif %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let form = document.querySelector("form");
+            let input = document.getElementById("link");
+            let loadingMessage = document.createElement("p");
+    
+            // Create and style the loading message
+            loadingMessage.innerText = "Loading video...";
+            loadingMessage.classList.add("loading");
+            form.appendChild(loadingMessage);
+            loadingMessage.style.display = "none"; // Hide initially
+    
+            form.addEventListener("submit", function () {
+                if (input.value.trim() !== "") {
+                    loadingMessage.style.display = "block"; // Show loading message
+                }
+            });
+    
+            // Add event listener to all video elements
+            document.querySelectorAll("video").forEach(video => {
+                video.addEventListener("loadeddata", function () {
+                    loadingMessage.style.display = "none"; // Hide loading message when video is ready
+                });
+            });
+        });
+    </script>
+    
+</body>
 </html>
