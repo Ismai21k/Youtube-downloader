@@ -35,7 +35,7 @@ def user_registration(request):
         
     else:
         form = CustomUserCreationForm() 
-    return render(request, 'Apps/register.html',{'form':form})
+    return render(request, 'Apps/index.html',{'form':form})
 
 
 def user_login(request):
