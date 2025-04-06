@@ -79,7 +79,7 @@ def password_reset_request(request):
                     email_template_name = 'Apps/password_reset_email.html'
                     context = {
                         'email':user.email,
-                        'domain':'youtube-downloader-2-z4bz.onrender.com',
+                        'domain':'youtube-downloader-4-o820.onrender.com',
                         'site_name':'your website',
                         'uidb64':urlsafe_base64_encode(force_bytes(user.pk)),
                         'token':default_token_generator.make_token(user),

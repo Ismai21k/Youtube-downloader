@@ -36,8 +36,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'fallback-key-for-dev')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['youtube-downloader-2-z4bz.onrender.com/']
-
+ALLOWED_HOSTS = ['youtube-downloader-4-o820.onrender.com','127.0.0.1', 'localhost']
 
 # Application definition
 
